@@ -4,6 +4,7 @@ import trafilatura
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request, responses
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from schemas import NewsSearch, NewsArticle, NewsSummary, SummaryResults
 
@@ -18,6 +19,16 @@ async def lifespan(app: FastAPI):
     
     
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 
 @app.get('/')
