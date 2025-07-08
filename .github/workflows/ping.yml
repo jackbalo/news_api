@@ -1,0 +1,38 @@
+name: Keep Smart News Render Backend Awake
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # Every 5 minutes
+  workflow_dispatch:        # Optional: allows manual trigger from GitHub UI
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Smart News Digest (with retries)
+        run: |
+          echo "Pinging https://smart-news-digest.onrender.com/"
+          
+          max_retries=3
+          wait_seconds=10
+          url="https://smart-news-digest.onrender.com/"
+          
+          for ((i=1;i<=max_retries;i++)); do
+            echo "Attempt $i..."
+            status=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+
+            if [[ "$status" == "200" ]]; then
+              echo "✅ Success: App is awake (HTTP 200)"
+              exit 0
+            else
+              echo "⚠️  Attempt $i failed: HTTP $status"
+              if [[ $i -lt $max_retries ]]; then
+                echo "⏳ Retrying in $wait_seconds seconds..."
+                sleep $wait_seconds
+              fi
+            fi
+          done
+
+          echo "❌ All attempts failed. App may be down or slow to wake."
+          exit 1
