@@ -15,7 +15,7 @@ jobs:
           echo "Pinging https://smart-news-digest.onrender.com/"
           
           max_retries=3
-          wait_seconds=10
+          wait_seconds=50
           url="https://smart-news-digest.onrender.com/"
           
           for ((i=1;i<=max_retries;i++)); do
