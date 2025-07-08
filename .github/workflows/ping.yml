@@ -16,7 +16,7 @@ jobs:
           
           max_retries=3
           wait_seconds=50
-          url="https://smart-news-digest.onrender.com/"
+          url="https://smart-news-digest.onrender.com/docs"
           
           for ((i=1;i<=max_retries;i++)); do
             echo "Attempt $i..."
