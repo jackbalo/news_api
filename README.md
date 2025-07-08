@@ -5,7 +5,7 @@ Smart News Digest is a FastAPI-powered backend application that enables users to
 1. 🔍 Search for general news headlines using SerpAPI
 2. 📄 Extract full article text from News urls using `trafilatura`
 3. 🧠 Generate summaries of news articles using Google's Gemini API
-
+ 
 ---
 
 ## 🚀 Features
